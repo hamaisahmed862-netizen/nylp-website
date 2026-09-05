@@ -23,6 +23,7 @@ const downloadBtn = document.getElementById("downloadBtn");
 
 startBtn.addEventListener("click", async () => {
   const name = studentNameInput.value.trim();
+
   if (!name) {
     alert("Please enter your name to start.");
     return;
@@ -32,132 +33,265 @@ startBtn.addEventListener("click", async () => {
   startBtn.textContent = "Loading...";
 
   try {
-    const res = await fetch(`${SCRIPT_URL}?action=startQuiz&name=${encodeURIComponent(name)}`);
+    const res = await fetch(
+      `${SCRIPT_URL}?action=startQuiz&name=${encodeURIComponent(name)}`
+    );
+
     const data = await res.json();
 
     if (data.blocked) {
-      alert("This name has already submitted the quiz. Each person can only attempt once.");
+      alert(
+        "This name has already submitted the quiz. Each person can only attempt once."
+      );
+
       startBtn.disabled = false;
       startBtn.textContent = "Start Quiz";
+
       return;
     }
 
     questions = data.questions;
+
     if (!questions || questions.length === 0) {
       alert("No questions available right now. Please try again later.");
+
       startBtn.disabled = false;
       startBtn.textContent = "Start Quiz";
+
       return;
     }
 
     studentName = name;
     quizStarted = true;
+
     nameStage.style.display = "none";
     quizStage.style.display = "block";
+
     loadQuestion();
+
     history.pushState(null, "", location.href);
 
   } catch (err) {
+
     console.error(err);
-    alert("Something went wrong connecting to the quiz server. Please check your internet and try again.");
+
+    alert(
+      "Something went wrong connecting to the quiz server. Please check your internet and try again."
+    );
+
     startBtn.disabled = false;
     startBtn.textContent = "Start Quiz";
   }
 });
 
+
 function loadQuestion() {
+
   selectedOption = null;
+
   const q = questions[currentQuestion];
+
   questionText.textContent = q.question;
-  progressText.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+  progressText.textContent =
+    `Question ${currentQuestion + 1} of ${questions.length}`;
+
   optionsContainer.innerHTML = "";
 
+  const progressBar = document.getElementById("progressBar");
+
+  if (progressBar) {
+
+    const progress =
+      ((currentQuestion + 1) / questions.length) * 100;
+
+    progressBar.style.width = `${progress}%`;
+  }
+
   q.options.forEach(opt => {
+
     const btn = document.createElement("button");
+
     btn.textContent = opt;
+
     btn.className = "option-btn";
+
     btn.addEventListener("click", () => {
+
       selectedOption = opt;
-      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+
+      document
+        .querySelectorAll(".option-btn")
+        .forEach(b => b.classList.remove("selected"));
+
       btn.classList.add("selected");
+
     });
+
     optionsContainer.appendChild(btn);
+
   });
 }
 
+
 nextBtn.addEventListener("click", () => {
+
   if (!selectedOption) {
+
     alert("Please select an answer.");
+
     return;
   }
-  if (selectedOption === questions[currentQuestion].answer) {
+
+  if (
+    selectedOption ===
+    questions[currentQuestion].answer
+  ) {
     score++;
   }
+
   currentQuestion++;
 
   if (currentQuestion < questions.length) {
+
     loadQuestion();
+
   } else {
+
     showCertificate();
+
   }
+
 });
 
+
 async function showCertificate() {
+
   quizStage.style.display = "none";
+
   certStage.style.display = "block";
+
   certName.textContent = studentName;
-  certScore.textContent = `Score: ${score} / ${questions.length}`;
-  document.getElementById("certDate").textContent = new Date().toLocaleDateString("en-GB", {
-    day: "numeric", month: "long", year: "numeric"
-  });
+
+  certScore.textContent =
+    `Score: ${score} / ${questions.length}`;
+
+  document.getElementById("certDate").textContent =
+    new Date().toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+
   quizStarted = false;
 
   try {
+
     await fetch(SCRIPT_URL, {
+
       method: "POST",
+
       body: JSON.stringify({
         name: studentName,
         score: score,
         total: questions.length
       })
+
     });
+
   } catch (err) {
-    console.error("Failed to record submission:", err);
+
+    console.error(
+      "Failed to record submission:",
+      err
+    );
+
   }
+
 }
 
+
 window.addEventListener("popstate", () => {
+
   if (quizStarted) {
-    history.pushState(null, "", location.href);
-    alert("You cannot go back during the quiz.");
+
+    history.pushState(
+      null,
+      "",
+      location.href
+    );
+
+    alert(
+      "You cannot go back during the quiz."
+    );
+
   }
+
 });
+
 
 window.addEventListener("beforeunload", (e) => {
+
   if (quizStarted) {
+
     e.preventDefault();
+
     e.returnValue = "";
+
   }
+
 });
 
+
 downloadBtn.addEventListener("click", () => {
-  const certElement = document.querySelector(".cert-border");
+
+  const certElement =
+    document.querySelector(".cert-border");
 
   downloadBtn.disabled = true;
+
   downloadBtn.textContent = "Preparing...";
 
-  html2canvas(certElement, { scale: 2, backgroundColor: "#fdfcf8", useCORS: true }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = `NYLP-Certificate-${studentName.replace(/\s+/g, "_")}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+  html2canvas(certElement, {
+    scale: 2,
+    backgroundColor: "#fdfcf8",
+    useCORS: true
+  })
+    .then(canvas => {
 
-    downloadBtn.disabled = false;
-    downloadBtn.textContent = "Download Certificate";
-  }).catch(err => {
-    console.error("Certificate download failed:", err);
-    alert("Something went wrong generating the certificate image. Please try again.");
-    downloadBtn.disabled = false;
-    downloadBtn.textContent = "Download Certificate";
-  });
+      const link =
+        document.createElement("a");
+
+      link.download =
+        `NYLP-Certificate-${studentName.replace(/\s+/g, "_")}.png`;
+
+      link.href =
+        canvas.toDataURL("image/png");
+
+      link.click();
+
+      downloadBtn.disabled = false;
+
+      downloadBtn.textContent =
+        "Download Certificate";
+
+    })
+    .catch(err => {
+
+      console.error(
+        "Certificate download failed:",
+        err
+      );
+
+      alert(
+        "Something went wrong generating the certificate image. Please try again."
+      );
+
+      downloadBtn.disabled = false;
+
+      downloadBtn.textContent =
+        "Download Certificate";
+
+    });
+
 });

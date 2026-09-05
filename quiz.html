@@ -3,92 +3,370 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>National Defense Quiz 2026 - NYLP</title>
+
+  <title>NYLP National Defense Quiz 2026</title>
+
+  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
+  <!-- Animated background -->
   <canvas id="bg-canvas"></canvas>
 
+  <!-- ================= NAVBAR ================= -->
+
   <nav class="navbar">
-    <div class="nav-logo">
+
+    <a href="index.html" class="nav-logo">
       <img src="assets/logo.jpeg" alt="NYLP Logo">
       <span>NYLP</span>
-    </div>
+    </a>
+
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-      <li><a href="activities.html">Activities</a></li>
-      <li><a href="quiz.html" class="active">Quiz Competition</a></li>
+
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+
+      <li>
+        <a href="index.html#about">About</a>
+      </li>
+
+      <li>
+        <a href="index.html#activities">Activities</a>
+      </li>
+
+      <li>
+        <a href="index.html#contact">Contact</a>
+      </li>
+
     </ul>
+
   </nav>
+
+
+  <!-- ================= QUIZ ================= -->
 
   <main class="quiz-wrapper">
 
-    <!-- STAGE 1: Name entry -->
-    <section id="nameStage" class="quiz-stage">
-      <h1>NYLP National Defense Quiz 2026</h1>
-      <p>Enter your name to begin. Once you start, you cannot go back.</p>
-      <input type="text" id="studentName" placeholder="Your full name" />
-      <button class="btn" id="startBtn">Start Quiz</button>
-    </section>
+    <!-- ================= INTRO STAGE ================= -->
 
-    <!-- STAGE 2: Quiz -->
-    <section id="quizStage" class="quiz-stage" style="display:none;">
-      <div class="quiz-progress">
-        <span id="progressText"></span>
+    <section id="nameStage" class="quiz-stage quiz-intro">
+
+      <div class="quiz-brand-mark">
+        <span>NYLP</span>
       </div>
-      <h2 id="questionText"></h2>
-      <div id="optionsContainer" class="options-container"></div>
-      <button class="btn" id="nextBtn">Next</button>
+
+      <p class="quiz-eyebrow">
+        NATIONAL YOUTH LEADERSHIP PROGRAMME
+      </p>
+
+      <h1>
+        National Defense
+        <span>Quiz 2026</span>
+      </h1>
+
+      <p class="quiz-description">
+        Test your knowledge of national defense, strategic affairs,
+        national security and Pakistan's history.
+      </p>
+
+      <div class="quiz-info-grid">
+
+        <div class="quiz-info-card">
+          <span class="info-icon">◆</span>
+          <strong>Knowledge</strong>
+          <small>Defense &amp; Strategy</small>
+        </div>
+
+        <div class="quiz-info-card">
+          <span class="info-icon">◆</span>
+          <strong>Challenge</strong>
+          <small>Test Your Skills</small>
+        </div>
+
+        <div class="quiz-info-card">
+          <span class="info-icon">◆</span>
+          <strong>Achievement</strong>
+          <small>Earn Your Certificate</small>
+        </div>
+
+      </div>
+
+      <div class="name-input-wrapper">
+
+        <label for="studentName">
+          Enter your full name
+        </label>
+
+        <input
+          type="text"
+          id="studentName"
+          placeholder="Your full name"
+          autocomplete="name"
+        >
+
+      </div>
+
+      <button class="btn quiz-primary-btn" id="startBtn">
+        <span>Start Quiz</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <p class="quiz-note">
+        Please enter your name carefully. Each participant can attempt
+        the quiz only once.
+      </p>
+
     </section>
 
-    <!-- STAGE 3: Certificate -->
-    <section id="certStage" class="quiz-stage" style="display:none;">
-      <h1>Congratulations!</h1>
 
-      <div id="certificate" class="certificate">
-        <div class="cert-border">
-          <img src="assets/logo.jpeg" alt="NYLP Logo" class="cert-logo" crossorigin="anonymous">
+    <!-- ================= QUESTION STAGE ================= -->
 
-          <p class="cert-eyebrow">National Youth Leadership Programme</p>
-          <h2 class="cert-title">National Defense Quiz 2026 — Certificate of Achievement</h2>
+    <section
+      id="quizStage"
+      class="quiz-stage question-stage"
+      style="display:none;"
+    >
 
-          <p class="cert-line">This certificate is proudly presented to</p>
-          <h3 id="certName" class="cert-name"></h3>
+      <div class="quiz-header">
 
-          <p class="cert-body">
-            for successfully completing the NYLP National Defense Quiz 2026, demonstrating
-            knowledge of national defense, strategic affairs, and a commitment to the values
-            of leadership and civic responsibility that define Pakistan's largest youth
-            leadership platform.
+        <div>
+          <p class="quiz-eyebrow">
+            NYLP NATIONAL DEFENSE QUIZ
           </p>
 
-          <p id="certScore" class="cert-score"></p>
-
-          <div class="cert-footer">
-            <div class="cert-signature">
-              <p class="sig-name">Khoja Sheraaz Ali</p>
-              <p class="sig-title">Founder &amp; Chairman, NYLP</p>
-            </div>
-            <div class="cert-date">
-              <p id="certDate" class="date-value"></p>
-              <p class="date-label">Date Issued</p>
-            </div>
-          </div>
+          <h1>Test Your Knowledge</h1>
         </div>
+
+        <div class="quiz-live-badge">
+          <span></span>
+          QUIZ IN PROGRESS
+        </div>
+
       </div>
 
-      <button class="btn" id="downloadBtn">Download Certificate</button>
+
+      <div class="quiz-progress-wrapper">
+
+        <div class="progress-top">
+
+          <span id="progressText">
+            Question 1 of 10
+          </span>
+
+          <span class="progress-label">
+            Keep going
+          </span>
+
+        </div>
+
+        <div class="progress-track">
+          <div
+            id="progressBar"
+            class="progress-bar"
+          ></div>
+        </div>
+
+      </div>
+
+
+      <div class="question-card">
+
+        <div class="question-number">
+          <span>QUESTION</span>
+        </div>
+
+        <h2 id="questionText"></h2>
+
+        <div
+          id="optionsContainer"
+          class="options-container"
+        ></div>
+
+      </div>
+
+
+      <div class="question-footer">
+
+        <p>
+          Select one answer to continue.
+        </p>
+
+        <button class="btn quiz-next-btn" id="nextBtn">
+          <span>Next Question</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= CERTIFICATE STAGE ================= -->
+
+    <section
+      id="certStage"
+      class="quiz-stage certificate-stage"
+      style="display:none;"
+    >
+
+      <div class="completion-heading">
+
+        <div class="completion-icon">
+          ✓
+        </div>
+
+        <p class="quiz-eyebrow">
+          QUIZ COMPLETED
+        </p>
+
+        <h1>
+          Congratulations!
+        </h1>
+
+        <p>
+          You have successfully completed the
+          <strong>NYLP National Defense Quiz 2026.</strong>
+        </p>
+
+      </div>
+
+
+      <!-- Certificate -->
+
+      <div id="certificate" class="certificate">
+
+        <div class="cert-border">
+
+          <div class="certificate-top-decoration"></div>
+
+          <img
+            src="assets/logo.jpeg"
+            alt="NYLP Logo"
+            class="cert-logo"
+            crossorigin="anonymous"
+          >
+
+          <p class="cert-eyebrow">
+            NATIONAL YOUTH LEADERSHIP PROGRAMME
+          </p>
+
+          <h2 class="cert-title">
+            Certificate of Achievement
+          </h2>
+
+          <p class="cert-event">
+            National Defense Quiz 2026
+          </p>
+
+          <div class="certificate-divider">
+            <span></span>
+            <i>◆</i>
+            <span></span>
+          </div>
+
+          <p class="cert-line">
+            This certificate is proudly presented to
+          </p>
+
+          <h3
+            id="certName"
+            class="cert-name"
+          ></h3>
+
+          <p class="cert-body">
+            for successfully completing the NYLP National Defense
+            Quiz 2026, demonstrating knowledge of national defense,
+            strategic affairs, and a commitment to the values of
+            leadership and civic responsibility.
+          </p>
+
+          <div class="certificate-score-box">
+
+            <span>Your Achievement</span>
+
+            <strong id="certScore"></strong>
+
+          </div>
+
+
+          <div class="cert-footer">
+
+            <div class="cert-signature">
+
+              <p class="signature-line"></p>
+
+              <p class="sig-name">
+                Khoja Sheraaz Ali
+              </p>
+
+              <p class="sig-title">
+                Founder &amp; Chairman, NYLP
+              </p>
+
+            </div>
+
+
+            <div class="cert-date">
+
+              <p
+                id="certDate"
+                class="date-value"
+              ></p>
+
+              <p class="date-label">
+                Date Issued
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn download-btn"
+        id="downloadBtn"
+      >
+        <span>Download Certificate</span>
+        <span class="download-icon">↓</span>
+      </button>
+
+      <p class="certificate-note">
+        Your certificate is generated as a high-quality PNG image.
+      </p>
+
     </section>
 
   </main>
 
+
+  <!-- html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Background -->
   <script src="js/space-bg.js"></script>
+
+  <!-- Quiz logic -->
   <script src="js/quiz.js"></script>
+
 </body>
 </html>
