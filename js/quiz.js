@@ -1,4 +1,4 @@
-const SCRIPT_URL = "PASTE_YOUR_CURRENT_WORKING_SCRIPT_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwAXVHHgERH2Jf4zMAnR6bHLZRj-pe8GRT67oxyQh5RYaW-ky52kmZg-ofZDxZY6NH/exec";
 
 let questions = [];
 let currentQuestion = 0;
