@@ -370,3 +370,52 @@ body {
 .option-btn {
   background: #ffffff;
 }
+/* Mobile responsive navbar */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .quiz-wrapper {
+    padding: 0 16px;
+  }
+
+  .cert-border {
+    padding: 30px 20px;
+  }
+
+  .cert-title {
+    font-size: 1.8rem;
+  }
+
+  .cert-name {
+    font-size: 2.2rem;
+  }
+
+  .cert-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cert-date {
+    text-align: left;
+  }
+}
