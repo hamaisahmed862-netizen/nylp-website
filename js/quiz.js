@@ -243,55 +243,115 @@ window.addEventListener("beforeunload", (e) => {
 });
 
 
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener("click", async () => {
 
-  const certElement =
-    document.querySelector(".cert-border");
+  const certElement = document.querySelector(".cert-border");
+  const logo = certElement.querySelector(".cert-logo");
 
   downloadBtn.disabled = true;
-
   downloadBtn.textContent = "Preparing...";
 
-  html2canvas(certElement, {
-    scale: 2,
-    backgroundColor: "#fdfcf8",
-    useCORS: true
-  })
-    .then(canvas => {
+  try {
 
-      const link =
-        document.createElement("a");
+    // Create a canvas version of the logo.
+    // This prevents the certificate canvas from becoming tainted.
+    let logoDataUrl = null;
+
+    if (logo) {
+
+      const logoCanvas = document.createElement("canvas");
+      const ctx = logoCanvas.getContext("2d");
+
+      logoCanvas.width = logo.naturalWidth || 300;
+      logoCanvas.height = logo.naturalHeight || 300;
+
+      ctx.drawImage(
+        logo,
+        0,
+        0,
+        logoCanvas.width,
+        logoCanvas.height
+      );
+
+      logoDataUrl = logoCanvas.toDataURL("image/jpeg");
+
+    }
+
+    // Clone the certificate
+    const certificateClone = certElement.cloneNode(true);
+
+    // Replace the original logo with the data URL
+    const clonedLogo =
+      certificateClone.querySelector(".cert-logo");
+
+    if (clonedLogo && logoDataUrl) {
+      clonedLogo.src = logoDataUrl;
+    }
+
+    // Put the clone temporarily into the document
+    certificateClone.style.position = "absolute";
+    certificateClone.style.left = "-99999px";
+    certificateClone.style.top = "0";
+
+    document.body.appendChild(certificateClone);
+
+    // Give the browser time to render the cloned certificate
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const canvas = await html2canvas(certificateClone, {
+      scale: 2,
+      backgroundColor: "#fdfcf8",
+      useCORS: true,
+      allowTaint: false
+    });
+
+    // Remove temporary certificate
+    document.body.removeChild(certificateClone);
+
+    // Download PNG
+    canvas.toBlob((blob) => {
+
+      if (!blob) {
+        throw new Error("Unable to create certificate image.");
+      }
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
 
       link.download =
         `NYLP-Certificate-${studentName.replace(/\s+/g, "_")}.png`;
 
-      link.href =
-        canvas.toDataURL("image/png");
+      link.href = url;
+
+      document.body.appendChild(link);
 
       link.click();
 
-      downloadBtn.disabled = false;
+      document.body.removeChild(link);
 
-      downloadBtn.textContent =
-        "Download Certificate";
-
-    })
-    .catch(err => {
-
-      console.error(
-        "Certificate download failed:",
-        err
-      );
-
-      alert(
-        "Something went wrong generating the certificate image. Please try again."
-      );
+      URL.revokeObjectURL(url);
 
       downloadBtn.disabled = false;
+      downloadBtn.textContent = "Download Certificate";
 
-      downloadBtn.textContent =
-        "Download Certificate";
+    }, "image/png");
 
-    });
+  } catch (err) {
+
+    console.error(
+      "Certificate download failed:",
+      err
+    );
+
+    alert(
+      "Something went wrong generating the certificate image. Please try again."
+    );
+
+    downloadBtn.disabled = false;
+    downloadBtn.textContent =
+      "Download Certificate";
+
+  }
 
 });
