@@ -1,4 +1,5 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwAXVHHgERH2Jf4zMAnR6bHLZRj-pe8GRT67oxyQh5RYaW-ky52kmZg-ofZDxZY6NH/exec";
+const SCRIPT_URL = "PASTE_YOUR_CURRENT_WORKING_SCRIPT_URL_HERE";
+
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
@@ -18,6 +19,7 @@ const optionsContainer = document.getElementById("optionsContainer");
 const progressText = document.getElementById("progressText");
 const certName = document.getElementById("certName");
 const certScore = document.getElementById("certScore");
+const downloadBtn = document.getElementById("downloadBtn");
 
 startBtn.addEventListener("click", async () => {
   const name = studentNameInput.value.trim();
@@ -136,4 +138,26 @@ window.addEventListener("beforeunload", (e) => {
     e.preventDefault();
     e.returnValue = "";
   }
+});
+
+downloadBtn.addEventListener("click", () => {
+  const certElement = document.querySelector(".cert-border");
+
+  downloadBtn.disabled = true;
+  downloadBtn.textContent = "Preparing...";
+
+  html2canvas(certElement, { scale: 2, backgroundColor: "#fdfcf8", useCORS: true }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = `NYLP-Certificate-${studentName.replace(/\s+/g, "_")}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = "Download Certificate";
+  }).catch(err => {
+    console.error("Certificate download failed:", err);
+    alert("Something went wrong generating the certificate image. Please try again.");
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = "Download Certificate";
+  });
 });

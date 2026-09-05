@@ -300,3 +300,73 @@ body {
 .cert-date {
   text-align: right;
 }
+/* Brand color pass */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 3px solid #1a5632;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  border-bottom: 2px solid #1a5632;
+  color: #1a5632;
+}
+
+.hero {
+  background: transparent;
+}
+
+.hero h1 {
+  color: #1a5632;
+}
+
+.btn {
+  background-color: #1a5632;
+}
+
+.btn:hover {
+  background-color: #123d23;
+}
+
+.stat span {
+  color: #1a5632;
+}
+
+.option-btn:hover {
+  border-color: #1a5632;
+}
+
+.option-btn.selected {
+  background-color: #1a5632;
+  border-color: #1a5632;
+}
+
+.nav-links a.active {
+  color: #1a5632;
+  font-weight: 600;
+}
+
+.cta .btn {
+  background-color: #c9a227;
+}
+
+.cta .btn:hover {
+  background-color: #a9871c;
+}
+
+/* Site-wide background */
+body {
+  background-color: #fdfcf8;
+}
+
+.navbar {
+  background-color: #fdfcf8;
+}
+
+.stat {
+  background: #ffffff;
+}
+
+.option-btn {
+  background: #ffffff;
+}
