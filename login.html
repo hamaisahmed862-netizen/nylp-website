@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login - NYLP</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nylp: {
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+              950: '#052e16'
+            },
+
+            gold: {
+              400: '#facc15',
+              500: '#d4a84b',
+              600: '#b8862f'
+            }
+          },
+
+          fontFamily: {
+            display: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+  <div id="bg3d-wrap" aria-hidden="true">
+
+    <canvas id="bg3d"></canvas>
+
+    <div id="bg3d-veil"></div>
+
+  </div>
+
+
+  <!-- ================= NAVBAR ================= -->
+
+  <header class="fixed top-0 inset-x-0 z-50">
+
+    <div class="glass border-b border-nylp-800/30">
+
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 sm:h-[4.5rem]"
+      >
+
+
+        <a
+          href="index.html"
+          class="flex items-center gap-3 group"
+        >
+
+          <img
+            src="assets/logo.jpeg"
+            alt="NYLP Logo"
+            class="w-10 h-10 sm:w-11 sm:h-11 object-contain rounded-full"
+          >
+
+          <div class="hidden sm:block leading-tight">
+
+            <div
+              class="font-display text-base font-bold tracking-wide text-white"
+            >
+              NYLP
+            </div>
+
+            <div
+              class="text-[10px] font-medium tracking-wider text-nylp-300/80 uppercase"
+            >
+              Leaders of the Nation
+            </div>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="index.html"
+          class="text-sm text-nylp-200 hover:text-gold-400 transition"
+        >
+          ← Back to Home
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= LOGIN ================= -->
+
+  <main class="auth-wrapper">
+
+    <div class="auth-card">
+
+
+      <div class="text-center mb-7">
+
+        <img
+          src="assets/logo.jpeg"
+          alt="NYLP Logo"
+          class="w-16 h-16 mx-auto rounded-full object-contain mb-4"
+        >
+
+        <h1>
+          Welcome Back
+        </h1>
+
+        <p class="auth-subtitle">
+          Login to participate in the NYLP National Defense Quiz.
+        </p>
+
+      </div>
+
+
+      <form id="loginForm">
+
+
+        <div class="auth-field">
+
+          <label for="email">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          >
+
+        </div>
+
+
+        <div class="auth-field">
+
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+
+        </div>
+
+
+        <div
+          id="loginMessage"
+          class="auth-message"
+        ></div>
+
+
+        <button
+          type="submit"
+          id="loginBtn"
+          class="btn auth-btn"
+        >
+
+          Login
+
+        </button>
+
+      </form>
+
+
+      <p class="auth-switch">
+
+        Don't have an account?
+
+        <a href="signup.html">
+          Create one
+        </a>
+
+      </p>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- AUTH -->
+
+  <script src="js/auth.js"></script>
+
+  <!-- BACKGROUND -->
+
+  <script src="js/space-bg.js"></script>
+
+
+  <!-- LOGIN LOGIC -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
+    const loginMessage =
+      document.getElementById("loginMessage");
+
+
+    loginForm.addEventListener(
+      "submit",
+      async (e) => {
+
+        e.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        loginBtn.disabled = true;
+
+        loginBtn.textContent =
+          "Logging in...";
+
+
+        loginMessage.textContent = "";
+
+        loginMessage.className =
+          "auth-message";
+
+
+        try {
+
+          await loginUser(
+            email,
+            password
+          );
+
+
+          loginMessage.textContent =
+            "Login successful!";
+
+          loginMessage.className =
+            "auth-message success";
+
+
+          /*
+           * Check where the user came from.
+           *
+           * Normal Login:
+           * login.html
+           *       ↓
+           * index.html
+           *
+           * Quiz Login:
+           * login.html?redirect=quiz
+           *       ↓
+           * quiz.html
+           */
+
+          const urlParams =
+            new URLSearchParams(
+              window.location.search
+            );
+
+
+          const redirect =
+            urlParams.get("redirect");
+
+
+          setTimeout(() => {
+
+            if (redirect === "quiz") {
+
+              window.location.href =
+                "quiz.html";
+
+            } else {
+
+              window.location.href =
+                "index.html";
+
+            }
+
+          }, 500);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+
+          loginMessage.textContent =
+            error.message ||
+            "Unable to login. Please check your details.";
+
+
+          loginMessage.className =
+            "auth-message error";
+
+
+          loginBtn.disabled = false;
+
+          loginBtn.textContent =
+            "Login";
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+</html>

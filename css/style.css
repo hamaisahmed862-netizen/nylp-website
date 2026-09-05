@@ -1652,3 +1652,156 @@ body {
   }
 
 }
+/* =========================================
+   Authentication Pages
+   ========================================= */
+
+.auth-wrapper {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.auth-card h1 {
+  text-align: center;
+  color: #f2e9d0;
+  margin-bottom: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.3rem;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: #b8b6ac;
+  margin-bottom: 30px;
+}
+
+.auth-field {
+  margin-bottom: 18px;
+}
+
+.auth-field label {
+  display: block;
+  color: #e8e6df;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e8e6df;
+  font-size: 1rem;
+  outline: none;
+}
+
+.auth-field input:focus {
+  border-color: #c9a227;
+  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.1);
+}
+
+.auth-field input::placeholder {
+  color: #88877f;
+}
+
+.auth-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-message {
+  min-height: 24px;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.auth-message.success {
+  color: #7fd69a;
+}
+
+.auth-message.error {
+  color: #e98282;
+}
+
+.auth-switch {
+  text-align: center;
+  color: #b8b6ac;
+  margin-top: 25px;
+}
+
+.auth-switch a {
+  color: #c9a227;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+
+  .auth-wrapper {
+    padding: 40px 16px;
+  }
+
+  .auth-card {
+    padding: 30px 22px;
+  }
+
+  .auth-card h1 {
+    font-size: 2rem;
+  }
+
+}
+/* NYLP Certificate Logo */
+.cert-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+/* Certificate Position */
+.certificate-position {
+  text-align: center;
+  margin: 12px auto 18px;
+}
+
+.certificate-position span {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.certificate-position strong {
+  display: block;
+  margin-top: 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+}
