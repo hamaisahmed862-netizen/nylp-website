@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Competition - NYLP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">
+      <img src="assets/logo.jpeg" alt="NYLP Logo">
+      <span>NYLP</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="quiz.html" class="active">Quiz Competition</a></li>
+    </ul>
+  </nav>
+
+  <main class="quiz-wrapper">
+
+    <!-- STAGE 1: Name entry -->
+    <section id="nameStage" class="quiz-stage">
+      <h1>Quiz Competition</h1>
+      <p>Enter your name to begin. Once you start, you cannot go back.</p>
+      <input type="text" id="studentName" placeholder="Your full name" />
+      <button class="btn" id="startBtn">Start Quiz</button>
+    </section>
+
+    <!-- STAGE 2: Quiz -->
+    <section id="quizStage" class="quiz-stage" style="display:none;">
+      <div class="quiz-progress">
+        <span id="progressText"></span>
+      </div>
+      <h2 id="questionText"></h2>
+      <div id="optionsContainer" class="options-container"></div>
+      <button class="btn" id="nextBtn">Next</button>
+    </section>
+
+    <!-- STAGE 3: Certificate -->
+    <section id="certStage" class="quiz-stage" style="display:none;">
+  <h1>Congratulations!</h1>
+
+  <div id="certificate" class="certificate">
+    <div class="cert-border">
+      <img src="assets/logo.jpeg" alt="NYLP Logo" class="cert-logo">
+
+      <p class="cert-eyebrow">National Youth Leadership Programme</p>
+      <h2 class="cert-title">Certificate of Achievement</h2>
+
+      <p class="cert-line">This certificate is proudly presented to</p>
+      <h3 id="certName" class="cert-name"></h3>
+
+      <p class="cert-body">
+        for successfully completing the NYLP Quiz Competition, demonstrating
+        knowledge, curiosity, and commitment to the values of leadership and
+        civic responsibility that define Pakistan's largest youth leadership platform.
+      </p>
+
+      <p id="certScore" class="cert-score"></p>
+
+      <div class="cert-footer">
+        <div class="cert-signature">
+          <p class="sig-name">Khoja Sheraaz Ali</p>
+          <p class="sig-title">Founder &amp; Chairman, NYLP</p>
+        </div>
+        <div class="cert-date">
+          <p id="certDate" class="date-value"></p>
+          <p class="date-label">Date Issued</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="downloadBtn">Download Certificate</button>
+  </section>
+
+  </main>
+
+  <script src="js/quiz.js"></script>
+</body>
+</html>

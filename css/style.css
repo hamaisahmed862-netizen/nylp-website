@@ -1,0 +1,302 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-logo img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  padding: 6px 4px;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  border-bottom: 2px solid #2b6cb0;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+/* Vision section */
+.vision {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.vision-item {
+  max-width: 320px;
+  text-align: center;
+}
+
+.vision-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* CTA button */
+.cta {
+  text-align: center;
+  padding: 30px 0 60px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #2b6cb0;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #1e4e80;
+}
+
+/* Generic page content (About/Contact) */
+.page-content {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.page-content h1 {
+  margin-bottom: 20px;
+}
+
+.page-content p {
+  margin-bottom: 16px;
+}
+
+.contact-info {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.contact-info li {
+  margin-bottom: 8px;
+}
+
+/* About page stats */
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.stat {
+  background: #f5f7fa;
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1 1 140px;
+  text-align: center;
+}
+
+.stat span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  margin-bottom: 4px;
+}
+
+/* Quiz page */
+.quiz-wrapper {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.quiz-stage input {
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.quiz-progress {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #555;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.option-btn {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.option-btn:hover {
+  border-color: #2b6cb0;
+}
+
+.option-btn.selected {
+  background-color: #2b6cb0;
+  color: white;
+  border-color: #2b6cb0;
+}
+
+/* Certificate */
+.certificate {
+  background: #fdfcf8;
+  padding: 12px;
+  margin: 30px 0;
+}
+
+.cert-border {
+  border: 3px solid #1a5632;
+  outline: 1px solid #c9a227;
+  outline-offset: -10px;
+  padding: 50px 40px;
+  position: relative;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.cert-logo {
+  height: 70px;
+  margin-bottom: 10px;
+}
+
+.cert-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  color: #1a5632;
+  margin-bottom: 6px;
+}
+
+.cert-title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #1a5632;
+  margin-bottom: 20px;
+}
+
+.cert-line {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.cert-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #c9a227;
+  margin: 6px 0 20px;
+  font-weight: 400;
+}
+
+.cert-body {
+  font-size: 1.05rem;
+  color: #333;
+  max-width: 480px;
+  margin: 0 auto 18px;
+  line-height: 1.6;
+}
+
+.cert-score {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1a5632;
+  margin-bottom: 30px;
+}
+
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid #d8d0bd;
+}
+
+.sig-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  color: #1a5632;
+  margin-bottom: 2px;
+}
+
+.sig-title, .date-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.date-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.cert-date {
+  text-align: right;
+}
