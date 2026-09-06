@@ -1835,3 +1835,11 @@ body {
   border-color: #dc3545 !important;
   color: white !important;
 }
+/* Signature image on certificate */
+.sig-image {
+  height: 55px;
+  width: auto;
+  display: block;
+  margin-bottom: 4px;
+  object-fit: contain;
+}
