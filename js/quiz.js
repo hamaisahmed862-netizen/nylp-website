@@ -1,4 +1,5 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwAXVHHgERH2Jf4zMAnR6bHLZRj-pe8GRT67oxyQh5RYaW-ky52kmZg-ofZDxZY6NH/exec";
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxwAXVHHgERH2Jf4zMAnR6bHLZRj-pe8GRT67oxyQh5RYaW-ky52kmZg-ofZDxZY6NH/exec";
 
 let questions = [];
 let currentQuestion = 0;
@@ -75,10 +76,6 @@ startBtn.addEventListener("click", async () => {
     studentName = name;
     quizStarted = true;
 
-    /*
-     * Start timer only when the quiz actually begins.
-     */
-
     quizStartTime = Date.now();
 
     nameStage.style.display = "none";
@@ -141,21 +138,19 @@ function loadQuestion() {
 
   q.options.forEach(opt => {
 
-    const btn =
-      document.createElement("button");
+    const btn = document.createElement("button");
 
     btn.textContent = opt;
 
-    btn.className =
-      "option-btn";
+    btn.className = "option-btn";
+
+    // Store the exact option value
+    btn.dataset.option = opt;
 
 
     btn.addEventListener("click", () => {
 
-      /*
-       * Prevent changing answers after selecting.
-       */
-
+      // Prevent changing answers after selecting
       if (selectedOption !== null) {
         return;
       }
@@ -164,16 +159,12 @@ function loadQuestion() {
       selectedOption = opt;
 
 
-      /*
-       * Disable all options after answering.
-       */
-
+      // Get options only from the current question
       const allOptions =
-        document.querySelectorAll(
-          ".option-btn"
-        );
+        optionsContainer.querySelectorAll(".option-btn");
 
 
+      // Disable all options after answering
       allOptions.forEach(button => {
 
         button.disabled = true;
@@ -181,11 +172,7 @@ function loadQuestion() {
       });
 
 
-      /*
-       * Correct answer = Green
-       * Wrong answer = Red
-       */
-
+      // If selected answer is correct
       if (opt === q.answer) {
 
         btn.classList.add(
@@ -194,20 +181,17 @@ function loadQuestion() {
 
       } else {
 
+        // Selected wrong answer becomes red
         btn.classList.add(
           "wrong-answer"
         );
 
 
-        /*
-         * Also highlight the correct answer.
-         */
-
+        // Find and highlight the correct answer in green
         allOptions.forEach(button => {
 
           if (
-            button.textContent ===
-            q.answer
+            button.dataset.option === String(q.answer)
           ) {
 
             button.classList.add(
@@ -241,6 +225,7 @@ nextBtn.addEventListener("click", () => {
     );
 
     return;
+
   }
 
 
